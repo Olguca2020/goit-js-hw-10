@@ -1,6 +1,6 @@
 import { fetchBreeds } from "./cat-api";
 import SlimSelect from 'slim-select';
-fetchBreeds()
+console.log(fetchBreeds());
 
 new SlimSelect({
   select: '#single',
