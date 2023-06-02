@@ -1,0 +1,2 @@
+new SlimSelect({select:"#single"}),fetch("https://api.thecatapi.com/v1/breeds",{headers:{"x-api-key":"live_sZJSF2r3b7RaQcpCRE4JWCZQFkPyecbqN78KnhGUiHv7pDzuobrRQWETam8vMi86"}}).then((e=>{if(!e.ok)throw new Error;return e.json()})).then((e=>{const t=document.querySelector("#single");e.forEach((e=>{const n=document.createElement("option");n.value=e.id,n.textContent=e.name,t.appendChild(n)}))})).catch((e=>{console.error("Сталася помилка:",e)}));
+//# sourceMappingURL=index.1034a5fc.js.map
