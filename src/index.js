@@ -1,22 +1,18 @@
-import { fetchBreeds } from "./cat-api";
-new SlimSelect({
-  select: '#single',
+import { fetchBreeds } from './cat-api';
+const displaySelect = new SlimSelect({
+  select: '#selectElement',
+});
+let displayData = []; 
+fetchBreeds().then(res => {
+  return displayData = res.map((breed, index) => ({
+    value: breed.id,
+    text: breed.name,
+    display: index === 0 ? false : true,
+  }));
+
 });
 
-fetchBreeds()
-  .then(res => {    
-    const breedSelect = document.querySelector(`#single`);    
-    res.forEach(breed => {
-      const optionElement = document.createElement(`option`);
-      optionElement.value = breed.id;
-      optionElement.textContent = breed.name;      
-      breedSelect.appendChild(optionElement);
-    });
-  })
-  .catch (error => {
-    console.error('Сталася помилка:', error);
-  });
 
-
-
-
+  displaySelect.setData(displayData);
+  const breedNames = displayData.map(breed => breed.text);
+  displaySelect.set(breedNames);
