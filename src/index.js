@@ -2,7 +2,7 @@ import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import Notiflix from 'notiflix';
 const select = new SlimSelect({
   select: '#selectElement',
-  });
+});
 
 const refs = {
   selectEl: document.querySelector('#selectElement'),
@@ -19,6 +19,13 @@ function hideLoader() {
   refs.loaderEl.classList.add('is-hidden');
 }
 
+function showContainer() {
+  refs.catInfoContainer.classList.remove('is-hidden');
+}
+
+function hideContainer() {
+  refs.catInfoContainer.classList.add('is-hidden');
+}
 function showBreedSelect() {
   refs.selectEl.classList.remove('is-hidden');
 }
@@ -26,7 +33,6 @@ function showBreedSelect() {
 function hideBreedSelect() {
   refs.selectEl.classList.add('is-hidden');
 }
-
 
 function showError() {
   refs.errorEl.classList.remove('is-hidden');
@@ -47,24 +53,26 @@ fetchBreeds()
     refs.loaderEl.classList.add(`is-hidden`);
   })
   .catch(err => {
+    hideLoader();
     hideBreedSelect();
-    refs.loaderEl.classList.add(`is-hidden`);
+    hideContainer();
     showError();
     Notiflix.Notify.failure(`Error: ${err.message}`);
   });
 
-  refs.selectEl.addEventListener('change', event => {
+refs.selectEl.addEventListener('change', event => {
   const breedId = event.target.value;
-    showLoader();
-    hideError();
+  
+  showLoader();
+  hideError();
   fetchCatByBreed(breedId)
     .then(res => {
-      console.log(res)
+      console.log(res);
       const {
         url,
         breeds: [{ name, description, temperament }],
       } = res;
-       const marcup = `
+      const marcup = `
         <img src="${url}" alt="${name}">
         <div class="title">
         <h3>${name}</h3>
@@ -72,14 +80,18 @@ fetchBreeds()
         <p><strong>Temperament:</strong> ${temperament}</p>
         </div>
       `;
-      
+
       refs.catInfoContainer.innerHTML = marcup;
       hideLoader();
-      refs.selectEl.value = "";
+      refs.selectEl.value = '';
     })
     .catch(err => {
+      hideLoader();
       hideBreedSelect();
+      hideContainer();
       showError();
-      Notiflix.Notify.failure(`Error: ${err.message}`);
+      Notiflix.Notify.failure(`Error: ${err.message}`); 
+      
     });
-})
+  
+});
