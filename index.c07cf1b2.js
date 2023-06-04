@@ -1,2 +1,0 @@
-const e=new SlimSelect({select:"#selectElement"});let t=[];fetch("https://api.thecatapi.com/v1/breeds",{headers:{"x-api-key":"live_sZJSF2r3b7RaQcpCRE4JWCZQFkPyecbqN78KnhGUiHv7pDzuobrRQWETam8vMi86"}}).then((e=>{if(!e.ok)throw new Error;return e.json()})).then((e=>t=e.map(((e,t)=>({value:e.id,text:e.name,display:0!==t}))))),e.setData(t);const a=t.map((e=>e.text));e.set(a);
-//# sourceMappingURL=index.c07cf1b2.js.map

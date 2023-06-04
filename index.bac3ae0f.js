@@ -1,2 +1,0 @@
-!function(){var e=new SlimSelect({select:"#selectElement"}),t=[];fetch("".concat("https://api.thecatapi.com/v1/","breeds"),{headers:{"x-api-key":"live_sZJSF2r3b7RaQcpCRE4JWCZQFkPyecbqN78KnhGUiHv7pDzuobrRQWETam8vMi86"}}).then((function(e){if(!e.ok)throw new Error;return e.json()})).then((function(e){return t=e.map((function(e,t){return{value:e.id,text:e.name,display:0!==t}}))})),e.setData(t);var n=t.map((function(e){return e.text}));e.set(n)}();
-//# sourceMappingURL=index.bac3ae0f.js.map
