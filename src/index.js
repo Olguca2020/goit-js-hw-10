@@ -48,6 +48,7 @@ fetchBreeds()
       value: reference_image_id,
       text: name,
     }));
+    options.unshift({ value: '', text: '' });
     select.setData(options);
     select.selectEl.classList.remove(`is-hidden`);
     refs.loaderEl.classList.add(`is-hidden`);
@@ -60,13 +61,18 @@ fetchBreeds()
     Notiflix.Notify.failure(`Error: ${err.message}`);
   });
 
+let firstLoade = true;
 refs.selectEl.addEventListener('change', event => {
   const breedId = event.target.value;
-  
+  showBreedSelect();
   showLoader();
   hideError();
   fetchCatByBreed(breedId)
     .then(res => {
+      if (firstLoade) {
+        firstLoade = false;
+        return;
+      }
       console.log(res);
       const {
         url,
@@ -90,8 +96,6 @@ refs.selectEl.addEventListener('change', event => {
       hideBreedSelect();
       hideContainer();
       showError();
-      Notiflix.Notify.failure(`Error: ${err.message}`); 
-      
+      Notiflix.Notify.failure(`Error: ${err.message}`);
     });
-  
 });
