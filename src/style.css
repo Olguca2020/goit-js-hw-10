@@ -17,6 +17,10 @@
   flex-direction: row;
 }
 
+.error{
+  color: red;
+  font-weight: 500;
+}
 img {
   display: block;
   width: 250px;

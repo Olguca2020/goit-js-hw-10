@@ -52,6 +52,7 @@ fetchBreeds()
     select.setData(options);
     select.selectEl.classList.remove(`is-hidden`);
     refs.loaderEl.classList.add(`is-hidden`);
+    
   })
   .catch(err => {
     hideLoader();
