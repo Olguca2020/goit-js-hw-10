@@ -1,8 +1,6 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import Notiflix from 'notiflix';
-const select = new SlimSelect({
-  select: '#selectElement',
-});
+
 
 const refs = {
   selectEl: document.querySelector('#selectElement'),
@@ -42,26 +40,6 @@ function hideError() {
   refs.errorEl.classList.add('is-hidden');
 }
 
-fetchBreeds()
-  .then(res => {
-    const options = res.map(({ reference_image_id, name }) => ({
-      value: reference_image_id,
-      text: name,
-    }));
-    options.unshift({ value: '', text: '' });
-    select.setData(options);
-    select.selectEl.classList.remove(`is-hidden`);
-    refs.loaderEl.classList.add(`is-hidden`);
-    
-  })
-  .catch(err => {
-    hideLoader();
-    hideBreedSelect();
-    hideContainer();
-    showError();
-    Notiflix.Notify.failure(`Error: ${err.message}`);
-  });
-
 let firstLoade = true;
 refs.selectEl.addEventListener('change', event => {
   const breedId = event.target.value;
@@ -74,7 +52,7 @@ refs.selectEl.addEventListener('change', event => {
         firstLoade = false;
         return;
       }
-      console.log(res);
+      
       const {
         url,
         breeds: [{ name, description, temperament }],
@@ -99,4 +77,30 @@ refs.selectEl.addEventListener('change', event => {
       showError();
       Notiflix.Notify.failure(`Error: ${err.message}`);
     });
+  
+});
+
+fetchBreeds()
+  .then(res => {
+    const options = res.map(({ reference_image_id, name }) => ({
+      value: reference_image_id,
+      text: name,
+    }));
+    options.unshift({ value: '', text: '' });
+    select.setData(options);
+    select.selectEl.classList.remove(`is-hidden`);
+    refs.loaderEl.classList.add(`is-hidden`);
+    
+  })
+  .catch(err => {
+    hideLoader();
+    hideBreedSelect();
+    hideContainer();
+    showError();
+    Notiflix.Notify.failure(`Error: ${err.message}`);
+    showBreedSelect();
+  });
+
+const select = new SlimSelect({
+  select: '#selectElement',
 });
