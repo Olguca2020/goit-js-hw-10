@@ -46,6 +46,7 @@ fetchBreeds()
   .catch(err => {
     refs.loaderEl.classList.add(`is-hidden`);
     showError();
+    Notiflix.Notify.failure(`Error: ${err.message}`);
     console.log(err);
   });
 let firstLoade = true;
@@ -81,5 +82,6 @@ refs.selectEl.addEventListener('change', event => {
     .catch(err => {
       hideLoader();
       showError();
+      Notiflix.Notify.failure(`Error: ${err.message}`);
     });
 });
